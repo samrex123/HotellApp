@@ -8,12 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 //kolla om du behöver ändra ApplicationDbContext till HotellAppContext - behövs troligtvis ej
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddControllers();
+builder.Services.AddDbContext<HotellAppContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<HotellAppContext>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace HotelSite.Models
 {
-    public partial class HotellAppContext : DbContext
+    public partial class HotellAppContext : IdentityDbContext
     {
         public HotellAppContext()
         {
@@ -34,6 +35,8 @@ namespace HotelSite.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Booking>(entity =>
             {
                 entity.ToTable("BOOKINGS");

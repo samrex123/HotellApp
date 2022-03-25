@@ -8,14 +8,14 @@ namespace HotelSite.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext _db;
-        //private readonly HotellAppContext _db;
+        //private readonly ApplicationDbContext _db;
+        private readonly HotellAppContext _db;
 
         public HomeController(ILogger<HomeController> logger,
-                                ApplicationDbContext applicationDbContext)
+                                HotellAppContext hotellAppContext)
         {
             _logger = logger;
-            _db = applicationDbContext;
+            _db = hotellAppContext;
         }
 
         public IActionResult Index()
