@@ -1,0 +1,74 @@
+﻿@model HotelSite1.Models.Booking
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Booking</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Customersid" class="control-label"></label>
+                <select asp-for="Customersid" class="form-control" asp-items="ViewBag.Customersid"></select>
+                <span asp-validation-for="Customersid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Qtypersons" class="control-label"></label>
+                <input asp-for="Qtypersons" class="form-control" />
+                <span asp-validation-for="Qtypersons" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Startdate" class="control-label"></label>
+                <input asp-for="Startdate" class="form-control" />
+                <span asp-validation-for="Startdate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Enddate" class="control-label"></label>
+                <input asp-for="Enddate" class="form-control" />
+                <span asp-validation-for="Enddate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Eta" class="control-label"></label>
+                <input asp-for="Eta" class="form-control" />
+                <span asp-validation-for="Eta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Timearrival" class="control-label"></label>
+                <input asp-for="Timearrival" class="form-control" />
+                <span asp-validation-for="Timearrival" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Timedeparture" class="control-label"></label>
+                <input asp-for="Timedeparture" class="form-control" />
+                <span asp-validation-for="Timedeparture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Specialneeds" class="control-label"></label>
+                <input asp-for="Specialneeds" class="form-control" />
+                <span asp-validation-for="Specialneeds" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Extrabed" /> @Html.DisplayNameFor(model => model.Extrabed)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
