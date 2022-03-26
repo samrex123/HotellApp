@@ -45,6 +45,30 @@ namespace HotelSite1.Controllers
             return View(customer);
         }
 
+        // GET: Customers/Details/5
+        public async Task<ActionResult> MyInfo()
+        {
+
+            var userEmail = User.Identity.Name;
+            var customersList = _context.Customers.ToList();
+            foreach (var customerr in customersList)
+            {
+                if (customerr.Email == userEmail)
+                {
+                    var customer = await _context.Customers.FirstOrDefaultAsync(m => m.Email == userEmail);
+                    
+                    return RedirectToAction(nameof(Details) +$"/{customer.Id}");
+
+                }
+                //else
+                //{
+                //    return RedirectToAction(nameof(Create));
+                //}
+            }
+
+            return RedirectToAction(nameof(Create));
+        }
+
         // GET: Customers/Create
         public IActionResult Create()
         {

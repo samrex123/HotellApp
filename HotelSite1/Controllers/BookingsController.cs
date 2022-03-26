@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HotelSite1.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelSite1.Controllers
 {
@@ -20,6 +21,7 @@ namespace HotelSite1.Controllers
         }
 
         // GET: Bookings
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Index()
         {
             var hotellAppContext = _context.Bookings.Include(b => b.Customers);
@@ -46,10 +48,12 @@ namespace HotelSite1.Controllers
         }
 
         // GET: Bookings/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["Customersid"] = new SelectList(_context.Customers, "Id", "Id");
-            return View();
+            return View(); 
+
         }
 
         // POST: Bookings/Create
