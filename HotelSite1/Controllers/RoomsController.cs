@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using HotelSite.Models;
+using HotelSite1.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace HotelSite.Controllers
+namespace HotelSite1.Controllers
 {
     public class RoomsController : Controller
     {
@@ -21,8 +21,16 @@ namespace HotelSite.Controllers
         }
 
         // GET: Rooms
-        [Authorize]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
+        {
+            var hotellAppContext = _context.Rooms.Include(r => r.Roomtypes);
+            return View(await hotellAppContext.ToListAsync());
+        }
+
+        // GET: Rooms
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Manage()
         {
             var hotellAppContext = _context.Rooms.Include(r => r.Roomtypes);
             return View(await hotellAppContext.ToListAsync());

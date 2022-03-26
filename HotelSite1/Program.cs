@@ -1,23 +1,21 @@
-using HotelSite.Data;
-using HotelSite.Models;
+using HotelSite1.Data;
+using HotelSite1.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-//kolla om du behöver ändra ApplicationDbContext till HotellAppContext - behövs troligtvis ej
-//builder.Services.AddControllers();
 builder.Services.AddDbContext<HotellAppContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<HotellAppContext>()
     .AddDefaultTokenProviders();
-
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

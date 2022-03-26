@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace HotelSite.Models
+namespace HotelSite1.Models
 {
     public partial class HotellAppContext : IdentityDbContext<IdentityUser>
     {
@@ -17,6 +17,7 @@ namespace HotelSite.Models
             : base(options)
         {
         }
+
 
         public virtual DbSet<Booking> Bookings { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
