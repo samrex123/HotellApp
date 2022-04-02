@@ -57,16 +57,14 @@ namespace HotelSite1.Controllers
                 {
                     var customer = await _context.Customers.FirstOrDefaultAsync(m => m.Email == userEmail);
                     
-                    return RedirectToAction(nameof(Details) +$"/{customer.Id}");
+                    return RedirectToAction("Details", "Customers", new {id = customer.Id});
 
                 }
-                //else
-                //{
-                //    return RedirectToAction(nameof(Create));
-                //}
             }
 
+            //Kolla om dom är inloggade, isf skicka vidare till sidan under
             return RedirectToAction(nameof(Create));
+            //Om dom inte är inloggade, skicka vidare till log in sidan
         }
 
         // GET: Customers/Create
@@ -81,7 +79,7 @@ namespace HotelSite1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Customertypesid,Firstname,Lastname,Email,Streetadress,City,Country,Phonenumber,Ice,Lastupdated")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id,Customertypesid,Firstname,Lastname,Email,Streetadress,City,Country,Phonenumber,Ice")] Customer customer)
         {
             if (ModelState.IsValid)
             {

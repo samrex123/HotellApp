@@ -22,7 +22,7 @@ namespace HotelSite1.Models
         public string? Ice { get; set; }
         public DateTime? Lastupdated { get; set; }
 
-        public virtual Customertype Customertypes { get; set; } = null!;
+        public virtual Customertype? Customertypes { get; set; } = null!;
         public virtual ICollection<Booking> Bookings { get; set; }
     }
 }
