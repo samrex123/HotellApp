@@ -51,7 +51,8 @@ namespace HotelSite1.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            ViewData["Customersid"] = new SelectList(_context.Customers, "Id", "Id");
+            
+            //ViewData["Customersid"] = new SelectList(_context.Customers, "Id", "Id");
             return View(); 
 
         }
@@ -61,15 +62,28 @@ namespace HotelSite1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Customersid,Qtypersons,Startdate,Enddate,Eta,Timearrival,Timedeparture,Specialneeds,Extrabed")] Booking booking)
+        public async Task<IActionResult> Create([Bind("Qtypersons,Startdate,Enddate,Eta,Timearrival,Timedeparture,Specialneeds,Extrabed")] Booking booking)
         {
+            var userEmail = User.Identity.Name;
+            var customersList = _context.Customers.ToList();
+            foreach (var customerr in customersList)
+            {
+                if (customerr.Email == userEmail)
+                {
+                    var customer = await _context.Customers.FirstOrDefaultAsync(m => m.Email == userEmail);
+                    
+                    booking.Customersid = customer.Id;
+                    booking.Customers = await _context.Customers.FirstOrDefaultAsync(m =>m.Id == customer.Id);
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(booking);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Customersid"] = new SelectList(_context.Customers, "Id", "Id", booking.Customersid);
+            //ViewData["Customersid"] = new SelectList(_context.Customers, "Id", "Id", booking.Customersid);
             return View(booking);
         }
 

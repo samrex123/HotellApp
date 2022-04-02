@@ -21,7 +21,7 @@ namespace HotelSite1.Models
         public string? Specialneeds { get; set; }
         public bool Extrabed { get; set; }
 
-        public virtual Customer Customers { get; set; } = null!;
+        public virtual Customer? Customers { get; set; } = null!;
 
         public virtual ICollection<Room> Rooms { get; set; }
     }
