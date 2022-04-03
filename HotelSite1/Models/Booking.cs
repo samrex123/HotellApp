@@ -12,6 +12,7 @@ namespace HotelSite1.Models
 
         public long Id { get; set; }
         public long Customersid { get; set; }
+        public short? Roomsid { get; set; }
         public short Qtypersons { get; set; }
         public DateTime Startdate { get; set; }
         public DateTime Enddate { get; set; }

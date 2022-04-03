@@ -62,7 +62,7 @@ namespace HotelSite1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Qtypersons,Startdate,Enddate,Eta,Timearrival,Timedeparture,Specialneeds,Extrabed")] Booking booking)
+        public async Task<IActionResult> Create(short id, [Bind("Qtypersons,Startdate,Enddate,Eta,Timearrival,Timedeparture,Specialneeds,Extrabed")] Booking booking)
         {
             var userEmail = User.Identity.Name;
             var customersList = _context.Customers.ToList();
@@ -71,7 +71,9 @@ namespace HotelSite1.Controllers
                 if (customerr.Email == userEmail)
                 {
                     var customer = await _context.Customers.FirstOrDefaultAsync(m => m.Email == userEmail);
-                    
+
+                    booking.Roomsid = id;
+                    //var chosenRoom = booking.Rooms.FirstOrDefault(m => m.Id == id);
                     booking.Customersid = customer.Id;
                     booking.Customers = await _context.Customers.FirstOrDefaultAsync(m =>m.Id == customer.Id);
                 }

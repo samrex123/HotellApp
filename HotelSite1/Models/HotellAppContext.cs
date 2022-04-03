@@ -59,6 +59,8 @@ namespace HotelSite1.Models
 
                 entity.Property(e => e.Qtypersons).HasColumnName("QTYPERSONS");
 
+                entity.Property(e => e.Roomsid).HasColumnName("ROOMSID");
+
                 entity.Property(e => e.Specialneeds)
                     .HasColumnType("text")
                     .HasColumnName("SPECIALNEEDS");
