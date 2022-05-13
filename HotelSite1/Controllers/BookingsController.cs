@@ -79,11 +79,42 @@ namespace HotelSite1.Controllers
                 }
             }
 
-            if (ModelState.IsValid)
+            bool condition1 = true;
+            bool condition2 = true;
+            bool condition3 = true;
+
+            foreach (var existingBooking in _context.Bookings)
             {
-                _context.Add(booking);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (booking.Startdate < existingBooking.Startdate && booking.Enddate > existingBooking.Enddate)
+                {
+                    condition1 = false;
+                    break;
+                }
+
+                if (existingBooking.Startdate <= booking.Enddate && booking.Enddate < existingBooking.Enddate)
+                {
+                    condition2 = false;
+                    break;
+                }
+
+                if (existingBooking.Startdate <= booking.Startdate && booking.Startdate < existingBooking.Enddate)
+                {
+                    condition3 = false;
+                    break;
+                }
+            }
+            if (condition1 && condition2 && condition3)
+            {
+                if (ModelState.IsValid)
+                {
+                    _context.Add(booking);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "The room is not available for these dates";
             }
             //ViewData["Customersid"] = new SelectList(_context.Customers, "Id", "Id", booking.Customersid);
             return View(booking);
