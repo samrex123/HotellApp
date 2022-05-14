@@ -53,21 +53,17 @@ namespace HotelSite1.Controllers
         {
 
             var userEmail = User.Identity.Name;
-            var customersList = _context.Customers.ToList();
-            foreach (var customerr in customersList)
+            try
             {
-                if (customerr.Email == userEmail)
-                {
-                    var customer = await _context.Customers.FirstOrDefaultAsync(m => m.Email == userEmail);
-                    
-                    return RedirectToAction("Details", "Customers", new {id = customer.Id});
-
-                }
+                var customer = _context.Customers.FirstOrDefault(c => c.Email == userEmail);
+                return RedirectToAction("Details", "Customers", new { id = customer.Id });
+            }
+            catch (Exception)
+            {
+                throw;
             }
 
-            //Kolla om dom är inloggade, isf skicka vidare till sidan under
             return RedirectToAction(nameof(Create));
-            //Om dom inte är inloggade, skicka vidare till log in sidan
         }
 
         // GET: Customers/Create
