@@ -66,18 +66,20 @@ namespace HotelSite1.Controllers
         {
             var userEmail = User.Identity.Name;
             var customersList = _context.Customers.ToList();
-            foreach (var customerr in customersList)
+            try
             {
-                if (customerr.Email == userEmail)
-                {
-                    var customer = await _context.Customers.FirstOrDefaultAsync(m => m.Email == userEmail);
-
-                    booking.Roomsid = id;
-                    //var chosenRoom = booking.Rooms.FirstOrDefault(m => m.Id == id);
-                    booking.Customersid = customer.Id;
-                    booking.Customers = await _context.Customers.FirstOrDefaultAsync(m =>m.Id == customer.Id);
-                }
+                var customerr = customersList.First(m => m.Email == userEmail);
             }
+            catch (Exception)
+            {
+                ViewBag.ErrorMessage = "Please fill in your info under the 'My info' page before you attempt to book";
+                return View(booking);
+            }
+
+            var customer = customersList.First(m => m.Email == userEmail);
+            booking.Roomsid = id;
+            booking.Customersid = customer.Id;
+            booking.Customers = customer; //await _context.Customers.FirstOrDefaultAsync(m => m.Id == customer.Id);
 
             bool condition1 = true;
             bool condition2 = true;
@@ -109,7 +111,7 @@ namespace HotelSite1.Controllers
                 {
                     _context.Add(booking);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Details", "Bookings", new { id = booking.Id });
                 }
             }
             else

@@ -28,6 +28,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="MyInfo">My Info</a>
                         </li>
+                        @if ( User.Identity.IsAuthenticated ){
+                            if ( User.IsInRole("Admin") ){
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Index">Customers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Bookings" asp-action="Index">Bookings</a>
+                                </li>
+                            @*@Html.ActionLink("Customers", "CustomersController")
+                            @Html.ActionLink("Bookings", "BookingsController")  *@
+                            }
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
