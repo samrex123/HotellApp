@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HotelSite1.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelSite1.Controllers
 {
@@ -20,6 +21,7 @@ namespace HotelSite1.Controllers
         }
 
         // GET: Customers
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var hotellAppContext = _context.Customers.Include(c => c.Customertypes);
@@ -46,6 +48,7 @@ namespace HotelSite1.Controllers
         }
 
         // GET: Customers/Details/5
+        [Authorize]
         public async Task<ActionResult> MyInfo()
         {
 
@@ -68,6 +71,7 @@ namespace HotelSite1.Controllers
         }
 
         // GET: Customers/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["Customertypesid"] = new SelectList(_context.Customertypes, "Id", "Id");
@@ -75,8 +79,6 @@ namespace HotelSite1.Controllers
         }
 
         // POST: Customers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Customertypesid,Firstname,Lastname,Email,Streetadress,City,Country,Phonenumber,Ice")] Customer customer)
@@ -92,6 +94,7 @@ namespace HotelSite1.Controllers
         }
 
         // GET: Customers/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -109,8 +112,6 @@ namespace HotelSite1.Controllers
         }
 
         // POST: Customers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id, [Bind("Id,Customertypesid,Firstname,Lastname,Email,Streetadress,City,Country,Phonenumber,Ice,Lastupdated")] Customer customer)
@@ -145,6 +146,7 @@ namespace HotelSite1.Controllers
         }
 
         // GET: Customers/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
