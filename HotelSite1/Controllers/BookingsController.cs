@@ -83,7 +83,7 @@ namespace HotelSite1.Controllers
             bool condition2 = true;
             bool condition3 = true;
 
-            foreach (var existingBooking in _context.Bookings)
+            foreach (var existingBooking in _context.Bookings.Where(m => m.Roomsid ==booking.Roomsid))
             {
                 if (booking.Startdate < existingBooking.Startdate && booking.Enddate > existingBooking.Enddate)
                 {
