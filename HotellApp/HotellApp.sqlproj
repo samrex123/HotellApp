@@ -60,7 +60,6 @@
   <ItemGroup>
     <Build Include="BOOKINGS.sql" />
     <Build Include="CUSTOMERS.sql" />
-    <Build Include="BOOKINGSROOMS.sql" />
     <Build Include="CUSTOMERTYPES.sql" />
     <Build Include="ROOMS.sql" />
     <Build Include="ROOMTYPES.sql" />
