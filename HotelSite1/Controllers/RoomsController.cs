@@ -21,16 +21,7 @@ namespace HotelSite1.Controllers
         }
 
         // GET: Rooms
-        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
-        {
-            var hotellAppContext = _context.Rooms.Include(r => r.Roomtypes);
-            return View(await hotellAppContext.ToListAsync());
-        }
-
-        // GET: Rooms
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Manage()
         {
             var hotellAppContext = _context.Rooms.Include(r => r.Roomtypes);
             return View(await hotellAppContext.ToListAsync());
@@ -63,8 +54,6 @@ namespace HotelSite1.Controllers
         }
 
         // POST: Rooms/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Roomnum,Roomtypesid")] Room room)
@@ -97,8 +86,6 @@ namespace HotelSite1.Controllers
         }
 
         // POST: Rooms/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(short id, [Bind("Id,Roomnum,Roomtypesid")] Room room)

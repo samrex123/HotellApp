@@ -77,7 +77,7 @@ namespace HotelSite1.Controllers
             var customer = customersList.First(m => m.Email == userEmail);
             booking.Roomsid = id;
             booking.Customersid = customer.Id;
-            booking.Customers = customer; //await _context.Customers.FirstOrDefaultAsync(m => m.Id == customer.Id);
+            booking.Customers = customer;
 
             bool condition1 = true;
             bool condition2 = true;
